@@ -78,12 +78,12 @@ class Tweet: Object {
 
     dynamic var creator: User?
 
-    class func getOrCreateWithTweetID(tweetID: String, inRealm realm: Realm) -> Tweet {
+    class func getOrCreateWithTweetID(tweetID: String, inRealm realm: Realm) -> (justCreated: Bool, Tweet) {
 
         let predicate = NSPredicate(format: "tweetID = %@", tweetID)
 
         if let tweet = realm.objects(Tweet).filter(predicate).first {
-            return tweet
+            return (justCreated: false, tweet)
 
         } else {
             let newTweet = Tweet()
@@ -93,7 +93,7 @@ class Tweet: Object {
                 realm.add(newTweet)
             }
 
-            return newTweet
+            return (justCreated: true, newTweet)
         }
     }
 }
