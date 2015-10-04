@@ -18,12 +18,12 @@ class User: Object {
     dynamic var avatar: Avatar?
     var tweets = List<Tweet>()
 
-    class func getOrCreateWithUserID(userID: String, inRealm realm: Realm) -> User {
+    class func getOrCreateWithUserID(userID: String, inRealm realm: Realm) -> (justCreated: Bool, User) {
 
         let predicate = NSPredicate(format: "userID = %@", userID)
 
         if let user = realm.objects(User).filter(predicate).first {
-            return user
+            return (justCreated: false, user)
 
         } else {
             let newUser = User()
@@ -33,7 +33,7 @@ class User: Object {
                 realm.add(newUser)
             }
 
-            return newUser
+            return (justCreated: true, newUser)
         }
     }
 }
