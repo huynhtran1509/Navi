@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////
 //
-// Copyright 2014 Realm Inc.
+// Copyright 2015 Realm Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,19 +16,19 @@
 //
 ////////////////////////////////////////////////////////////////////////////
 
-#import <Realm/RLMMigration.h>
-#import <Realm/RLMObjectBase.h>
-#import <Realm/RLMRealm.h>
+#import <Foundation/Foundation.h>
+#import <Realm/RLMConstants.h>
 
-typedef void (^RLMObjectBaseMigrationBlock)(RLMObjectBase *oldObject, RLMObjectBase *newObject);
+@class RLMObjectBase, RLMProperty;
 
-@interface RLMMigration ()
+@interface RLMOptionalBase : NSProxy
 
-@property (nonatomic, strong) RLMRealm *oldRealm;
-@property (nonatomic, strong) RLMRealm *realm;
+- (instancetype)init;
 
-- (instancetype)initWithRealm:(RLMRealm *)realm oldRealm:(RLMRealm *)oldRealm;
+@property (nonatomic, weak) RLMObjectBase *object;
 
-- (void)execute:(RLMMigrationBlock)block;
+@property (nonatomic, unsafe_unretained) RLMProperty *property;
+
+@property (nonatomic) id underlyingValue;
 
 @end

@@ -29,7 +29,7 @@ class User: Object {
             let newUser = User()
             newUser.userID = userID
 
-            realm.write {
+            let _ = try? realm.write {
                 realm.add(newUser)
             }
 
@@ -61,7 +61,7 @@ class Avatar: Object {
             let newAvatar = Avatar()
             newAvatar.avatarURLString = avatarURLString
 
-            realm.write {
+            let _ = try? realm.write {
                 realm.add(newAvatar)
             }
 
@@ -89,7 +89,7 @@ class Tweet: Object {
             let newTweet = Tweet()
             newTweet.tweetID = tweetID
 
-            realm.write {
+            let _ = try? realm.write {
                 realm.add(newTweet)
             }
 
